@@ -1,7 +1,7 @@
 # attendance-system-face-recognition-python
 Face Recognition Based Attendance Management System (using Python)
 
-#### create enviroment 
+### Create enviroment 
 First open the terminal or command line in the IDE.Then write the following code.
 `python -m venv env`
 Then activate the enviroment using the code below for windows.
