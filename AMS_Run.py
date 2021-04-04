@@ -1,13 +1,14 @@
+import csv
+import datetime
+import os
+import time
 import tkinter as tk
 from tkinter import *
+
 import cv2
-import csv
-import os
 import numpy as np
-from PIL import Image, ImageTk
 import pandas as pd
-import datetime
-import time
+from PIL import Image
 
 #####Window is our Main frame of system
 window = tk.Tk()
@@ -157,7 +158,7 @@ def manually_fill():
             def create_csv():
                 import csv
                 cursor.execute("select * from " + DB_table_name + ";")
-                csv_name = 'D:/Thanh Nha/opencv/Attendace_managemnt_system/Attendance/Manually Attendance/' + DB_table_name + '.csv'
+                csv_name = 'D:/Thanh Nha/opencv/Attendace_management_system/Attendance/Manually Attendance/' + DB_table_name + '.csv'
                 with open(csv_name, "w") as csv_file:
                     csv_writer = csv.writer(csv_file)
                     csv_writer.writerow([i[0] for i in cursor.description])  # write headers
@@ -188,33 +189,31 @@ def manually_fill():
             Notifi = tk.Label(MFW, text="CSV created Successfully", bg="Green", fg="white", width=33,
                               height=2, font=('times', 19, 'bold'))
 
-            c1ear_enroll = tk.Button(MFW, text="X", command=remove_enr, fg="black", bg="deep pink", width=1,
-                                     height=1,
-                                     activebackground="Red", font=('times', 15, ' bold '))
+            c1ear_enroll = tk.Button(MFW, text="X", command=remove_enr, fg="black", bg="indianred", width=1,
+                                     height=1, activebackground="Red", font=('times', 12, ' bold '))
             c1ear_enroll.place(x=690, y=100)
 
-            c1ear_student = tk.Button(MFW, text="X", command=remove_student, fg="black", bg="deep pink", width=1,
-                                      height=1,
-                                      activebackground="Red", font=('times', 15, ' bold '))
+            c1ear_student = tk.Button(MFW, text="X", command=remove_student, fg="black", bg="indianred", width=1,
+                                      height=1, activebackground="Red", font=('times', 12, ' bold '))
             c1ear_student.place(x=690, y=200)
 
             DATA_SUB = tk.Button(MFW, text="Enter Data", command=enter_data_DB, fg="black", bg="lime green", width=20,
                                  height=2,
-                                 activebackground="Red", font=('times', 15, ' bold '))
+                                 activebackground="Red", font=('times', 10, ' bold '))
             DATA_SUB.place(x=170, y=300)
 
             MAKE_CSV = tk.Button(MFW, text="Convert to CSV", command=create_csv, fg="black", bg="red", width=20,
                                  height=2,
-                                 activebackground="Red", font=('times', 15, ' bold '))
+                                 activebackground="Red", font=('times', 10, ' bold '))
             MAKE_CSV.place(x=570, y=300)
 
             def attf():
                 import subprocess
                 subprocess.Popen(
-                    r'explorer /select,"D:/Thanh Nha/opencv/Attendace_managemnt_system/Attendance/Manually Attendance/-------Check atttendance-------"')
+                    r'explorer /select,"D:/Thanh Nha/opencv/Attendace_management_system/Attendance/Manually Attendance/-------Check atttendance-------"')
 
-            attf = tk.Button(MFW, text="Check Sheets", command=attf, fg="black", bg="lawn green", width=12, height=1,
-                             activebackground="Red", font=('times', 14, ' bold '))
+            attf = tk.Button(MFW, text="Check Sheets", command=attf, fg="black", bg="lime green",
+                            width=12, height=1, activebackground="Red", font=('times', 14, ' bold '))
             attf.place(x=730, y=410)
 
             MFW.mainloop()
@@ -227,9 +226,8 @@ def manually_fill():
     SUB_ENTRY = tk.Entry(sb, width=20, fg="red", font=('times', 23, ' bold '))
     SUB_ENTRY.place(x=250, y=105)
 
-    fill_manual_attendance = tk.Button(sb, text="Fill Attendance", command=fill_attendance, fg="white", bg="deep pink",
-                                       width=20, height=2,
-                                       activebackground="Red", font=('times', 15, ' bold '))
+    fill_manual_attendance = tk.Button(sb, text="Fill Attendance", command=fill_attendance, fg="black", bg="plum",
+                                       width=20, height=2, activebackground="violet", font=('times', 15, ' bold '))
     fill_manual_attendance.place(x=250, y=160)
     sb.mainloop()
 
@@ -445,7 +443,7 @@ def subjectchoose():
                 root = tkinter.Tk()
                 root.title("Attendance of " + Subject)
                 root.configure(background='snow')
-                cs = 'D:/Thanh Nha/opencv/Attendace_managemnt_system/' + fileName
+                cs = 'D:/Thanh Nha/opencv/Attendace_management_system/' + fileName
                 with open(cs, newline="") as file:
                     reader = csv.reader(file)
                     r = 0
@@ -474,7 +472,7 @@ def subjectchoose():
     def Attf():
         import subprocess
         subprocess.Popen(
-            r'explorer /select,"D:/Thanh Nha/opencv/Attendace_managemnt_system/Attendance/-------Check atttendance-------"')
+            r'explorer /select,"D:/Thanh Nha/opencv/Attendace_management_system/Attendance/-------Check atttendance-------"')
 
     attf = tk.Button(windo, text="Check Sheets", command=Attf, fg="black", bg="lawn green", width=12, height=1,
                      activebackground="Red", font=('times', 14, ' bold '))
@@ -487,9 +485,8 @@ def subjectchoose():
     tx = tk.Entry(windo, width=20, fg="red", font=('times', 23, ' bold '))
     tx.place(x=250, y=105)
 
-    fill_a = tk.Button(windo, text="Fill Attendance", fg="white", command=Fillattendances, bg="deep pink", width=20,
-                       height=2,
-                       activebackground="Red", font=('times', 15, ' bold '))
+    fill_a = tk.Button(windo, text="Fill Attendance", fg="black", command=Fillattendances, bg="plum",
+                       width=20, height=2, activebackground="violet", font=('times', 15, ' bold '))
     fill_a.place(x=250, y=160)
     windo.mainloop()
 
@@ -514,7 +511,7 @@ def admin_panel():
                 root.title("Student Details")
                 root.configure(background='snow')
 
-                cs = 'D:/Thanh Nha/opencv/Attendace_managemnt_system/StudentDetails/StudentDetails.csv'
+                cs = 'D:/Thanh Nha/opencv/Attendace_management_system/StudentDetails/StudentDetails.csv'
                 with open(cs, newline="") as file:
                     reader = csv.reader(file)
                     r = 0
@@ -563,15 +560,15 @@ def admin_panel():
     pw_entr = tk.Entry(win, width=20, show="*", fg="red", font=('times', 23, ' bold '))
     pw_entr.place(x=290, y=155)
 
-    c0 = tk.Button(win, text="X", command=c00, fg="black", bg="deep pink", width=1, height=1,
-                   activebackground="Red", font=('times', 15, ' bold '))
+    c0 = tk.Button(win, text="X", command=c00, fg="black", bg="indianred", width=1, height=1,
+                   activebackground="Red", font=('times', 12, ' bold '))
     c0.place(x=690, y=55)
 
-    c1 = tk.Button(win, text="X", command=c11, fg="black", bg="deep pink", width=1, height=1,
-                   activebackground="Red", font=('times', 15, ' bold '))
+    c1 = tk.Button(win, text="X", command=c11, fg="black", bg="indianred", width=1, height=1,
+                   activebackground="Red", font=('times', 12, ' bold '))
     c1.place(x=690, y=155)
 
-    Login = tk.Button(win, text="LogIn", fg="black", bg="lime green", width=20,
+    Login = tk.Button(win, text="Log In", fg="black", bg="lime green", width=20,
                       height=2,
                       activebackground="Red", command=log_in, font=('times', 15, ' bold '))
     Login.place(x=290, y=250)
@@ -641,7 +638,7 @@ def on_closing():
 
 window.protocol("WM_DELETE_WINDOW", on_closing)
 
-message = tk.Label(window, text="Face-Recognition-Based-Attendance-Management-System", bg="cyan", fg="black", width=50,
+message = tk.Label(window, text="Attendance Management System", bg="lightsalmon", fg="black", width=50,
                    height=3, font=('times', 30, 'italic bold '))
 
 message.place(x=80, y=20)
@@ -670,32 +667,32 @@ lbl2.place(x=200, y=300)
 txt2 = tk.Entry(window, width=20, fg="red", font=('times', 25, ' bold '))
 txt2.place(x=550, y=310)
 
-clearButton = tk.Button(window, text="X", command=clear, fg="black", bg="deep pink",
-                        width=2, height=1, activebackground="Red", font=('times', 15, ' bold '))
+clearButton = tk.Button(window, text="X", command=clear, fg="black", bg="indianred",
+                        width=2, height=1, activebackground="Red", font=('times', 12, ' bold '))
 clearButton.place(x=950, y=210)
 
-clearButton1 = tk.Button(window, text="X", command=clear1, fg="black", bg="deep pink",
-                         width=2, height=1, activebackground="Red", font=('times', 15, ' bold '))
+clearButton1 = tk.Button(window, text="X", command=clear1, fg="black", bg="indianred",
+                         width=2, height=1, activebackground="Red", font=('times', 12, ' bold '))
 clearButton1.place(x=950, y=310)
 
-AP = tk.Button(window, text="Check Register students", command=admin_panel, fg="black", bg="cyan", width=19, height=1,
-               activebackground="Red", font=('times', 15, ' bold '))
+AP = tk.Button(window, text="Check Register students", command=admin_panel, fg="black", bg="plum",
+               width=19, height=1, activebackground="violet", font=('times', 15, ' bold '))
 AP.place(x=990, y=410)
 
-takeImg = tk.Button(window, text="Take Images", command=take_img, fg="white", bg="blue2", width=20, height=3,
-                    activebackground="Red", font=('times', 15, ' bold '))
+takeImg = tk.Button(window, text="Take Images", command=take_img, fg="white", bg="cornflowerblue",
+                    width=20, height=3, activebackground="royalblue", font=('times', 15, ' bold '))
 takeImg.place(x=90, y=500)
 
-trainImg = tk.Button(window, text="Train Images", fg="black", command=trainimg, bg="lawn green", width=20, height=3,
-                     activebackground="Red", font=('times', 15, ' bold '))
+trainImg = tk.Button(window, text="Train Images", fg="black", command=trainimg, bg="cornflowerblue",
+                     width=20, height=3, activebackground="royalblue", font=('times', 15, ' bold '))
 trainImg.place(x=390, y=500)
 
-FA = tk.Button(window, text="Automatic Attendace", fg="white", command=subjectchoose, bg="blue2", width=20, height=3,
-               activebackground="Red", font=('times', 15, ' bold '))
+FA = tk.Button(window, text="Automatic Attendace", fg="white", command=subjectchoose, bg="cornflowerblue",
+               width=20, height=3, activebackground="royalblue", font=('times', 15, ' bold '))
 FA.place(x=690, y=500)
 
-quitWindow = tk.Button(window, text="Manually Fill Attendance", command=manually_fill, fg="black", bg="lawn green",
-                       width=20, height=3, activebackground="Red", font=('times', 15, ' bold '))
+quitWindow = tk.Button(window, text="Manually Fill Attendance", command=manually_fill, fg="black", bg="cornflowerblue",
+                       width=20, height=3, activebackground="royalblue", font=('times', 15, ' bold '))
 quitWindow.place(x=990, y=500)
 
 window.mainloop()
