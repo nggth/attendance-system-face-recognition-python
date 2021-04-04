@@ -14,7 +14,7 @@ Then activate the enviroment using the code below for windows.
 - Run `py AMS_Run.py`.
 
 ### Code Requirements
-- Opencv(`pip install opencv-python`)
+- Opencv(`pip install opencv-python` or `pip3 install opencv-python`)
 - Tkinter(Available in python)
 - PIL (`pip install Pillow`)
 - Pandas(`pip install pandas`)
