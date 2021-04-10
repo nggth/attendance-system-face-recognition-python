@@ -18,6 +18,7 @@ Then activate the enviroment using the code below for windows.
 - Tkinter(Available in python)
 - PIL (`pip install Pillow`)
 - Pandas(`pip install pandas`)
+- PyMySQL(`pip3 install PyMySQL`)
 
 ### Project Structure
 - After run you need to give your face data to system so enter your ID and name in box than click on `Take Images` button.
