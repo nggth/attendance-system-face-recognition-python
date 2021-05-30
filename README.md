@@ -10,7 +10,7 @@ Then activate the enviroment using the code below for windows.
 ### All Steps
 - Download my Repository 
 - Create a `TrainingImage` folder in a project. 
-- Open a `AMS_Run.py` and change the all paths with your system path
+- Open a `const.py` and change the PROJECT_PATH with your system path
 - Run `py AMS_Run.py`.
 
 ### Code Requirements
