@@ -1,0 +1,1 @@
+PROJECT_PATH = 'C:/Users/Minh Nguyen/Desktop/Projects/attendance-system-face-recognition-python/'
