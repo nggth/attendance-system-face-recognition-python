@@ -15,6 +15,7 @@ Then activate the enviroment using the code below for windows.
 
 ### Code Requirements
 - Opencv(`pip install opencv-python` or `pip3 install opencv-python`)
+- Opencv-contrib(`pip install opencv-contrib-python`)
 - Tkinter(Available in python)
 - PIL (`pip install Pillow`)
 - Pandas(`pip install pandas`)
