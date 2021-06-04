@@ -10,6 +10,8 @@ import numpy as np
 import pandas as pd
 from PIL import Image
 
+import const;
+
 #####Window is our Main frame of system
 window = tk.Tk()
 window.title("FAMS-Face Recognition Based Attendance Management System")
@@ -158,7 +160,7 @@ def manually_fill():
             def create_csv():
                 import csv
                 cursor.execute("select * from " + DB_table_name + ";")
-                csv_name = 'D:/Thanh Nha/opencv/Attendace_management_system/Attendance/Manually Attendance/' + DB_table_name + '.csv'
+                csv_name = const.PROJECT_PATH + 'Attendance/Manually Attendance/' + DB_table_name + '.csv'
                 with open(csv_name, "w") as csv_file:
                     csv_writer = csv.writer(csv_file)
                     csv_writer.writerow([i[0] for i in cursor.description])  # write headers
@@ -210,7 +212,7 @@ def manually_fill():
             def attf():
                 import subprocess
                 subprocess.Popen(
-                    r'explorer /select,"D:/Thanh Nha/opencv/Attendace_management_system/Attendance/Manually Attendance/-------Check atttendance-------"')
+                    r'explorer /select,"' + const.PROJECT_PATH + 'Attendance/Manually Attendance/-------Check atttendance-------"')
 
             attf = tk.Button(MFW, text="Check Sheets", command=attf, fg="black", bg="lime green",
                             width=12, height=1, activebackground="Red", font=('times', 14, ' bold '))
@@ -443,7 +445,7 @@ def subjectchoose():
                 root = tkinter.Tk()
                 root.title("Attendance of " + Subject)
                 root.configure(background='snow')
-                cs = 'D:/Thanh Nha/opencv/Attendace_management_system/' + fileName
+                cs = const.PROJECT_PATH + fileName
                 with open(cs, newline="") as file:
                     reader = csv.reader(file)
                     r = 0
@@ -472,7 +474,7 @@ def subjectchoose():
     def Attf():
         import subprocess
         subprocess.Popen(
-            r'explorer /select,"D:/Thanh Nha/opencv/Attendace_management_system/Attendance/-------Check atttendance-------"')
+            r'explorer /select,"' + const.PROJECT_PATH + 'Attendance/-------Check atttendance-------"')
 
     attf = tk.Button(windo, text="Check Sheets", command=Attf, fg="black", bg="lawn green", width=12, height=1,
                      activebackground="Red", font=('times', 14, ' bold '))
@@ -511,7 +513,7 @@ def admin_panel():
                 root.title("Student Details")
                 root.configure(background='snow')
 
-                cs = 'D:/Thanh Nha/opencv/Attendace_management_system/StudentDetails/StudentDetails.csv'
+                cs = const.PROJECT_PATH + 'StudentDetails/StudentDetails.csv'
                 with open(cs, newline="") as file:
                     reader = csv.reader(file)
                     r = 0
