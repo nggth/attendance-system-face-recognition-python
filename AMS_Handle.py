@@ -260,4 +260,8 @@ Notification = tk.Label(window, text="All things good", bg="Green", fg="white", 
 trainImg = tk.Button(window, text="Train Images", fg="black", command=training, bg="cornflowerblue",
                      width=20, height=3, activebackground="royalblue", font=('times', 15, ' bold '))
 trainImg.place(x=390, y=500)
+
+FA = tk.Button(window, text="Automatic Attendace", fg="white", command=subjectchoose, bg="cornflowerblue",
+               width=20, height=3, activebackground="royalblue", font=('times', 15, ' bold '))
+FA.place(x=690, y=500)
 window.mainloop()
