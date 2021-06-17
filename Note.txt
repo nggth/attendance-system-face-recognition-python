@@ -1,0 +1,8 @@
+Thay đổi (17/06/2021)
+    1. Click 1 lần Enter là kết hợp Train và Make images. Nhưng đợi khoảng 5 giây để hệ thống xử lý.
+    2. Bỏ button dẫn đường vào thư mục chứa file .csv
+    3. Làm mới lại file AMS_Run.py theo source gốc của tác giả.
+
+Cần chỉnh sửa
+    1. StudentDetails lưu đc dưới db nhưng ko show ngược lại lên cửa sổ khi nhấn fill attendance hoặc check sheets
+    (tham khảo chạy lại AMS_Run.py nhưng nhớ check lại path)
