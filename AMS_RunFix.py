@@ -618,15 +618,3 @@ FA = tk.Button(window, text="Automatic Attendance", fg="white", command=subjectc
 FA.place(x=600, y=500)
 
 window.mainloop()
-
-# How to use this app
-# 1. Install project and setup env
-# 2. Create file TrainingImage
-# 3. Please make sure you changed the path in file const.py
-# 4. Run file AMS_RunFix.py
-# 5. If you have your name before, go to step 8. But if you don't, please go to the step 6.
-# 6. Fill Enrollment and Name (Enrollment is number and Name is your name)
-# 7. Enter (After clicking Enter, please do not click anything and wait about 5 secs to train images.)
-# 8. Click button Automatic Attendance.
-# 9. Fill your subject and wait 10 secs to make an attendance.
-# 10. Check the sheet if you want to know the list of attendance.
