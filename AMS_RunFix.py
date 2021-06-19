@@ -23,6 +23,7 @@ def del_sc1():
     sc1.destroy()
 
 def err_screen():
+    noti()
     global sc1
     sc1 = tk.Tk()
     sc1.geometry('300x100')
@@ -30,9 +31,13 @@ def err_screen():
     sc1.title('Warning!!')
     sc1.configure(background='snow')
     Label(sc1, text='Enrollment & Name are required.', fg='red', bg='white', font=('times', 16, ' bold ')).pack()
-    Button(sc1, text='OK', command=del_sc1, fg="black", bg="lawn green", width=9, height=1, activebackground="Red",
+    Button(sc1, text='OK', command=del_sc1, fg="black", bg="red", width=9, height=1, activebackground="Red2",
            font=('times', 15, ' bold ')).place(x=90, y=50)
 
+def noti():
+    res = "Please fill Enrollment & Name"
+    Notification.configure(text=res, bg="red2", width=22, height=2, font=('times', 15, 'bold'))
+    Notification.place(x=480, y=400)
 
 ##Error screen2
 def del_sc2():
@@ -160,7 +165,7 @@ def subjectchoose():
                         break
 
                     attendance = attendance.drop_duplicates(['Enrollment'], keep='first')
-                    cv2.imshow('Filling attedance..', im)
+                    cv2.imshow('Filling attedance.....', im)
                     key = cv2.waitKey(30) & 0xff
                     if key == 27:
                         break
@@ -211,7 +216,6 @@ def subjectchoose():
 
                 cam.release()
                 cv2.destroyAllWindows()
-                windo.destroy()
 
                 import csv
                 import tkinter
@@ -266,28 +270,78 @@ def subjectchoose():
 
 
 def admin_panel():
-    import csv
-    import tkinter
-    root = tkinter.Tk()
-    root.title("Student Details")
-    root.configure(background='snow')
+    win = tk.Tk()
+    win.iconbitmap('AMS.ico')
+    win.title("LogIn")
+    win.geometry('780x420')
+    win.configure(background='snow')
 
-    cs = const.PROJECT_PATH + 'StudentDetails/StudentDetails.csv'
-    with open(cs, newline="") as file:
-        reader = csv.reader(file)
-        r = 0
+    def log_in():
+        username = un_entr.get()
+        password = pw_entr.get()
 
-        for col in reader:
-            c = 0
-            for row in col:
-                # i've added some styling
-                label = tkinter.Label(root, width=8, height=1, fg="black", font=('times', 15, ' bold '),
-                                      bg="lightblue", text=row, relief=tkinter.RIDGE)
-                label.grid(row=r, column=c)
-                c += 1
-            r += 1
-        root.mainloop()
+        if username == 'admin' :
+            if password == 'admin':
+                win.destroy()
+                import csv
+                import tkinter
+                root = tkinter.Tk()
+                root.title("Student Details")
+                root.configure(background='snow')
 
+                cs = 'D:/demo/attendance-system-face-recognition-python/StudentDetails/StudentDetails.csv'
+                with open(cs, newline="") as file:
+                    reader = csv.reader(file)
+                    r = 0
+
+                    for col in reader:
+                        c = 0
+                        for row in col:
+                            # i've added some styling
+                            label = tkinter.Label(root, width=8, height=1, fg="black", font=('times', 15, ' bold '),
+                                                  bg="lawn green", text=row, relief=tkinter.RIDGE)
+                            label.grid(row=r, column=c)
+                            c += 1
+                        r += 1
+                root.mainloop()
+            else:
+                valid = 'Incorrect ID or Password'
+                Nt.configure(text=valid, bg="red", fg="black", width=38, font=('times', 19, 'bold'))
+                Nt.place(x=120, y=350)
+
+        else:
+            valid ='Incorrect ID or Password'
+            Nt.configure(text=valid, bg="red", fg="black", width=38, font=('times', 19, 'bold'))
+            Nt.place(x=120, y=350)
+
+
+    Nt = tk.Label(win, text="Attendance filled Successfully", bg="Green", fg="white", width=40,
+                  height=2, font=('times', 19, 'bold'))
+    # Nt.place(x=120, y=350)
+
+    un = tk.Label(win, text="Enter username", width=15, height=2, fg="black", font=('times', 15, ' bold '))
+    un.place(x=30, y=50)
+
+    pw = tk.Label(win, text="Enter password", width=15, height=2, fg="black", font=('times', 15, ' bold '))
+    pw.place(x=30, y=150)
+
+    def c00():
+        un_entr.delete(first=0, last=22)
+
+    un_entr = tk.Entry(win, width=20, bg="PapayaWhip", fg="red", font=('times', 23, ' bold '))
+    un_entr.place(x=290, y=55)
+
+    def c11():
+        pw_entr.delete(first=0, last=22)
+
+    pw_entr = tk.Entry(win, width=20,show="*", bg="PapayaWhip", fg="red", font=('times', 23, ' bold '))
+    pw_entr.place(x=290, y=155)
+
+    Login = tk.Button(win, text="LogIn", fg="black", bg="lime green", width=20,
+                       height=2,
+                       activebackground="Red",command=log_in, font=('times', 15, ' bold '))
+    Login.place(x=290, y=250)
+    win.mainloop()
 
 ###For train the model
 def trainimg():
@@ -388,5 +442,9 @@ trainImg.place(x=350, y=500)
 FA = tk.Button(window, text="Automatic Attendance", fg="white", command=subjectchoose, bg="cornflowerblue",
                width=20, height=3, activebackground="royalblue", font=('times', 15, ' bold '))
 FA.place(x=650, y=500)
+AP = tk.Button(window, text="Check Register students", command=admin_panel, fg="black", bg="PaleTurquoise",
+               width=19, height=1,activebackground="Red",font=('times', 15, ' bold '))
+AP.place(x=990, y=410)
+
 
 window.mainloop()
