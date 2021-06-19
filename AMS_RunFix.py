@@ -397,7 +397,7 @@ def subjectchoose():
                 date = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d')
                 timeStamp = datetime.datetime.fromtimestamp(ts).strftime('%H:%M:%S')
                 Hour, Minute, Second = timeStamp.split(":")
-                fileName = "Attendance/" + Subject + "_" + date + "_" + Hour + "-" + Minute + "-" + Second + ".csv"
+                # fileName = "Attendance/" + Subject + "_" + date + "_" + Hour + "-" + Minute + "-" + Second + ".csv"
                 attendance = attendance.drop_duplicates(['Enrollment'], keep='first')
                 print(attendance)
                 attendance.to_csv(fileName, index=False)
@@ -440,28 +440,41 @@ def subjectchoose():
                 cam.release()
                 cv2.destroyAllWindows()
 
-                import csv
-                import tkinter
-                root = tkinter.Tk()
-                root.title("Attendance of " + Subject)
-                root.configure(background='snow')
-                cs = const.PROJECT_PATH + fileName
-                with open(cs, newline="") as file:
-                    reader = csv.reader(file)
-                    r = 0
+    def ReFillAttendances():
 
-                    for col in reader:
-                        c = 0
-                        for row in col:
-                            # i've added some styling
-                            label = tkinter.Label(root, width=8, height=1, fg="black", font=('times', 15, ' bold '),
-                                                  bg="lawn green", text=row, relief=tkinter.RIDGE)
-                            label.grid(row=r, column=c)
-                            c += 1
-                        r += 1
-                root.mainloop()
-                print(attendance)
+        ts = time.time()
+        date = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d')
+        timeStamp = datetime.datetime.fromtimestamp(ts).strftime('%H:%M:%S')
+        Hour, Minute, Second = timeStamp.split(":")
+        global fileName, Subject
+        Subject = tx.get()
+        fileName = "Attendance/" + Subject + "_" + date + "_" + Hour + "-" + Minute + "-" + Second + ".csv"
 
+        Fillattendances()
+        from tkinter import messagebox
+        if messagebox.askokcancel("Continue", "Do you want to continue attendance?"):
+            ReFillAttendances()
+        import csv
+        root = tk.Tk()
+        root.title("Attendance of " + Subject)
+        root.configure(background='snow')
+        cs = const.PROJECT_PATH + fileName
+        with open(cs, newline="") as file:
+            reader = csv.reader(file)
+            r = 0
+
+            for col in reader:
+                c = 0
+                for row in col:
+                    # i've added some styling
+                    label = tk.Label(root, width=8, height=1, fg="black", font=('times', 15, ' bold '),
+                                            bg="lawn green", text=row, relief=tk.RIDGE)
+                    label.grid(row=r, column=c)
+                    c += 1
+                r += 1
+        root.mainloop()
+        print(attendance)
+            
     ###windo is frame for subject chooser
     windo = tk.Tk()
     windo.iconbitmap('AMS.ico')
@@ -487,7 +500,7 @@ def subjectchoose():
     tx = tk.Entry(windo, width=20, fg="red", font=('times', 23, ' bold '))
     tx.place(x=250, y=105)
 
-    fill_a = tk.Button(windo, text="Fill Attendance", fg="black", command=Fillattendances, bg="plum",
+    fill_a = tk.Button(windo, text="Fill Attendance", fg="black", command=ReFillAttendances, bg="plum",
                        width=20, height=2, activebackground="violet", font=('times', 15, ' bold '))
     fill_a.place(x=250, y=160)
     windo.mainloop()
