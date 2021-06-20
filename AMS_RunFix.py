@@ -301,7 +301,7 @@ def admin_panel():
                 root.title("Student Details")
                 root.configure(background='snow')
 
-                cs = 'D:/demo/attendance-system-face-recognition-python/StudentDetails/StudentDetails.csv'
+                cs = const.PROJECT_PATH + 'StudentDetails/StudentDetails.csv'
                 with open(cs, newline="") as file:
                     reader = csv.reader(file)
                     r = 0
