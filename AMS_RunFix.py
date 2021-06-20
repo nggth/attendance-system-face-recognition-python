@@ -19,17 +19,9 @@ window.title("FAMS-Face Recognition Based Attendance Management System")
 window.geometry('1280x720')
 window.configure(background='snow')
 
-# def del_sc1():
-#     sc1.destroy()
-
-def err_screen():
+def err_screen1():
     from tkinter import messagebox
-    messagebox.showwarning("Warning","Enrollment & Name are required.")  
-    
-def noti():
-    res = "Please fill Enrollment & Name"
-    Notification.configure(text=res, bg="red2", width=22, height=2, font=('times', 15, 'bold'))
-    Notification.place(x=480, y=400)
+    messagebox.showwarning("Warning","Please fill Enrollment & Name.")  
 
 ##Error screen2
 def err_screen2():
@@ -41,9 +33,9 @@ def take_img():
     l1 = txt.get()
     l2 = txt2.get()
     if l1 == '':
-        err_screen()
+        err_screen1()
     elif l2 == '':
-        err_screen()
+        err_screen1()
     else:
         try:
             cam = cv2.VideoCapture(0)
@@ -79,9 +71,9 @@ def take_img():
                 writer = csv.writer(csvFile, delimiter=',')
                 writer.writerow(row)
                 csvFile.close()
-            res = "Images Saved for Enrollment : " + Enrollment + " Name : " + Name
+            res = "Images Saved for Enrollment.\n" + Enrollment + ": " + Name
             Notification.configure(text=res, bg="SpringGreen3", width=50, font=('times', 18, 'bold'))
-            Notification.place(x=250, y=400)
+            Notification.place(x=300, y=400)
         except FileExistsError as F:
             f = 'Student Data already exists'
             Notification.configure(text=f, bg="Red", width=21)
@@ -349,9 +341,7 @@ def trainimg():
         global faces, Id
         faces, Id = getImagesAndLabels("TrainingImage")
     except Exception as e:
-        l = 'please make "TrainingImage" folder & put Images'
-        Notification.configure(text=l, bg="SpringGreen3", width=50, font=('times', 18, 'bold'))
-        Notification.place(x=350, y=400)
+        print('please make "TrainingImage" folder & put Images')
 
     recognizer.train(faces, np.array(Id))
     try:
@@ -361,10 +351,7 @@ def trainimg():
         Notification.configure(text=q, bg="SpringGreen3", width=50, font=('times', 18, 'bold'))
         Notification.place(x=350, y=400)
 
-    res = "Model Trained"  # +",".join(str(f) for f in Id)
-    Notification.configure(text=res, bg="SpringGreen3", width=20, height=2, font=('times', 18, 'bold'))
-    Notification.place(x=480, y=400)
-
+    print('Model Trained successfully.')
 
 def getImagesAndLabels(path):
     imagePaths = [os.path.join(path, f) for f in os.listdir(path)]
