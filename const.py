@@ -3,5 +3,5 @@
 # FOLDER_PATH = 'Attendance/Manually Attendance/'
 
 # Here is example.
-PROJECT_PATH = 'D:/demo2/attendance-system-face-recognition-python/'
+PROJECT_PATH = 'D:/attendance-system-face-recognition-python/'
 FOLDER_PATH = 'Attendance/Manually Attendance/'
