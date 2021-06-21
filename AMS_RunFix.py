@@ -19,6 +19,7 @@ window.title("FAMS-Face Recognition Based Attendance Management System")
 window.geometry('1280x720')
 window.configure(background='snow')
 
+##Error screen1
 def err_screen1():
     from tkinter import messagebox
     messagebox.showwarning("Warning","Please fill Enrollment & Name.")  
@@ -27,6 +28,11 @@ def err_screen1():
 def err_screen2():
     from tkinter import messagebox
     messagebox.showwarning("Warning","Please enter your subject name.")  
+
+##Error screen3
+def err_screen3():
+    from tkinter import messagebox
+    messagebox.showwarning("Warning","Please take picture first.")  
 
 ###For take images for datasets
 def take_img():
@@ -72,8 +78,8 @@ def take_img():
                 writer.writerow(row)
                 csvFile.close()
             res = "Images Saved for Enrollment.\n" + Enrollment + ": " + Name
-            Notification.configure(text=res, bg="SpringGreen3", width=50, font=('times', 18, 'bold'))
-            Notification.place(x=300, y=400)
+            Notification.configure(text=res, bg="SpringGreen3", width=30, font=('times', 18, 'bold'))
+            Notification.place(x=350, y=400)
         except FileExistsError as F:
             f = 'Student Data already exists'
             Notification.configure(text=f, bg="Red", width=21)
@@ -142,6 +148,9 @@ def subjectchoose():
                             cv2.rectangle(im, (x, y), (x + w, y + h), (0, 25, 255), 7)
                             cv2.putText(im, str(tt), (x + h, y), font, 1, (0, 25, 255), 4)
                     if time.time() > future:
+                        err_screen3()
+                        cam.release()
+                        cv2.destroyAllWindows()
                         break
 
                     attendance = attendance.drop_duplicates(['Enrollment'], keep='first')
@@ -271,7 +280,7 @@ def admin_panel():
     win = tk.Tk()
     win.iconbitmap('AMS.ico')
     win.title("LogIn")
-    win.geometry('780x420')
+    win.geometry('730x420')
     win.configure(background='snow')
 
     def log_in():
@@ -428,14 +437,14 @@ lbl2.place(x=300, y=300)
 txt2 = tk.Entry(window, width=20, fg="red", font=('times', 25, ' bold '))
 txt2.place(x=600, y=310)
 
-trainImg = tk.Button(window, text="Enter", fg="black", command=lambda: [take_img(), trainimg()], bg="cornflowerblue",
+trainImg = tk.Button(window, text="Take image", fg="black", command=lambda: [take_img(), trainimg()], bg="cornflowerblue",
                      width=20, height=3, activebackground="royalblue", font=('times', 15, ' bold '))
 trainImg.place(x=350, y=500)
 
 FA = tk.Button(window, text="Automatic Attendance", fg="white", command=subjectchoose, bg="cornflowerblue",
                width=20, height=3, activebackground="royalblue", font=('times', 15, ' bold '))
 FA.place(x=650, y=500)
-AP = tk.Button(window, text="Check Register students", command=admin_panel, fg="black", bg="PaleTurquoise",
+AP = tk.Button(window, text="Check Register", command=admin_panel, fg="black", bg="PaleTurquoise",
                width=19, height=1,activebackground="Red",font=('times', 15, ' bold '))
 AP.place(x=990, y=410)
 
