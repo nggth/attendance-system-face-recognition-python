@@ -19,48 +19,23 @@ window.title("FAMS-Face Recognition Based Attendance Management System")
 window.geometry('1280x720')
 window.configure(background='snow')
 
-def del_sc1():
-    sc1.destroy()
-
-def err_screen():
-    noti()
-    global sc1
-    sc1 = tk.Tk()
-    sc1.geometry('300x100')
-    sc1.iconbitmap('AMS.ico')
-    sc1.title('Warning!!')
-    sc1.configure(background='snow')
-    Label(sc1, text='Enrollment & Name are required.', fg='red', bg='white', font=('times', 16, ' bold ')).pack()
-    Button(sc1, text='OK', command=del_sc1, fg="black", bg="red", width=9, height=1, activebackground="Red2",
-           font=('times', 15, ' bold ')).place(x=90, y=50)
-
-def noti():
-    res = "Please fill Enrollment & Name"
-    Notification.configure(text=res, bg="red2", width=22, height=2, font=('times', 15, 'bold'))
-    Notification.place(x=480, y=400)
+def err_screen1():
+    from tkinter import messagebox
+    messagebox.showwarning("Warning","Please fill Enrollment & Name.")  
 
 ##Error screen2
-def del_sc2():
-    sc2.destroy()
-def err_screen1():
-    global sc2
-    sc2 = tk.Tk()
-    sc2.geometry('300x100')
-    sc2.iconbitmap('AMS.ico')
-    sc2.title('Warning!!')
-    sc2.configure(background='snow')
-    Label(sc2, text='Please enter your subject name!!!', fg='red', bg='white', font=('times', 16, ' bold ')).pack()
-    Button(sc2, text='OK', command=del_sc2, fg="black", bg="lawn green", width=9, height=1, activebackground="Red",
-           font=('times', 15, ' bold ')).place(x=90, y=50)
+def err_screen2():
+    from tkinter import messagebox
+    messagebox.showwarning("Warning","Please enter your subject name.")  
 
 ###For take images for datasets
 def take_img():
     l1 = txt.get()
     l2 = txt2.get()
     if l1 == '':
-        err_screen()
+        err_screen1()
     elif l2 == '':
-        err_screen()
+        err_screen1()
     else:
         try:
             cam = cv2.VideoCapture(0)
@@ -84,7 +59,7 @@ def take_img():
                 if cv2.waitKey(1) & 0xFF == ord('q'):
                     break
                 # break if the sample number is morethan 100
-                elif sampleNum > 70:
+                elif sampleNum > 60:
                     break
             cam.release()
             cv2.destroyAllWindows()
@@ -96,9 +71,9 @@ def take_img():
                 writer = csv.writer(csvFile, delimiter=',')
                 writer.writerow(row)
                 csvFile.close()
-            res = "Images Saved for Enrollment : " + Enrollment + " Name : " + Name
+            res = "Images Saved for Enrollment.\n" + Enrollment + ": " + Name
             Notification.configure(text=res, bg="SpringGreen3", width=50, font=('times', 18, 'bold'))
-            Notification.place(x=250, y=400)
+            Notification.place(x=300, y=400)
         except FileExistsError as F:
             f = 'Student Data already exists'
             Notification.configure(text=f, bg="Red", width=21)
@@ -117,7 +92,7 @@ def subjectchoose():
         if time.time() < future:
             if sub == '':
                 fill_attendance_error = True
-                err_screen1()
+                err_screen2()
             else:
                 recognizer = cv2.face.LBPHFaceRecognizer_create()  # cv2.createLBPHFaceRecognizer()
                 try:
@@ -143,7 +118,7 @@ def subjectchoose():
                         global Id
 
                         Id, conf = recognizer.predict(gray[y:y + h, x:x + w])
-                        if (conf < 70):
+                        if (conf < 60):
                             print(conf)
                             global Subject
                             global aa
@@ -269,14 +244,16 @@ def subjectchoose():
     Notifica = tk.Label(windo, text="Attendance filled Successfully", bg="Green", fg="white", width=33,
                         height=2, font=('times', 15, 'bold'))
 
-    # def Attf():
-    #     import subprocess
-    #     subprocess.Popen(r'explorer /select,"' + const.PROJECT_PATH + 'Attendance/-------Check atttendance-------"')
+    def Attf():
+        import subprocess
+        path = const.PROJECT_PATH + const.FOLDER_PATH
+        path = os.path.abspath(path)
+        path = path.replace('/', '\\')
+        subprocess.Popen(r'explorer /select,"'+path+'"', shell=True)
 
-    # attf = tk.Button(windo, text="Check b", command=Attf, fg="black", bg="lawn green", width=12, height=1,
-    #                  activebackground="Red", font=('times', 14, ' bold '))
-    # attf.place(x=430, y=255)
-
+    attf = tk.Button(windo, text="Check sheet", command=Attf, fg="black", bg="lawn green", width=12, height=1,
+                     activebackground="Red", font=('times', 14, ' bold '))
+    attf.place(x=430, y=255)
 
     sub = tk.Label(windo, text="Enter Subject", width=15, height=2, fg="black", font=('times', 15, ' bold '))
     sub.place(x=30, y=100)
@@ -310,7 +287,7 @@ def admin_panel():
                 root.title("Student Details")
                 root.configure(background='snow')
 
-                cs = 'D:/demo/attendance-system-face-recognition-python/StudentDetails/StudentDetails.csv'
+                cs = const.PROJECT_PATH + 'StudentDetails/StudentDetails.csv'
                 with open(cs, newline="") as file:
                     reader = csv.reader(file)
                     r = 0
@@ -373,9 +350,7 @@ def trainimg():
         global faces, Id
         faces, Id = getImagesAndLabels("TrainingImage")
     except Exception as e:
-        l = 'please make "TrainingImage" folder & put Images'
-        Notification.configure(text=l, bg="SpringGreen3", width=50, font=('times', 18, 'bold'))
-        Notification.place(x=350, y=400)
+        print('please make "TrainingImage" folder & put Images')
 
     recognizer.train(faces, np.array(Id))
     try:
@@ -385,10 +360,7 @@ def trainimg():
         Notification.configure(text=q, bg="SpringGreen3", width=50, font=('times', 18, 'bold'))
         Notification.place(x=350, y=400)
 
-    res = "Model Trained"  # +",".join(str(f) for f in Id)
-    Notification.configure(text=res, bg="SpringGreen3", width=20, height=2, font=('times', 18, 'bold'))
-    Notification.place(x=480, y=400)
-
+    print('Model Trained successfully.')
 
 def getImagesAndLabels(path):
     imagePaths = [os.path.join(path, f) for f in os.listdir(path)]

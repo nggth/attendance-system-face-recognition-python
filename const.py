@@ -1,1 +1,7 @@
-PROJECT_PATH = 'C:/Users/Minh Nguyen/Desktop/Projects/attendance-system-face-recognition-python/'
+# Please paste your path into '' of PROJECT_PATH and ignore FOLDER_PATH
+# PROJECT_PATH = ''
+# FOLDER_PATH = 'Attendance/Manually Attendance/'
+
+# Here is example.
+PROJECT_PATH = 'D:/demo2/attendance-system-face-recognition-python/'
+FOLDER_PATH = 'Attendance/Manually Attendance/'
