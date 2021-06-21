@@ -108,17 +108,22 @@ def take_img():
 ###for choose subject and fill attendance
 def subjectchoose():
     def Fillattendances():
+        global fill_attendance_error
+        fill_attendance_error = False
+
         sub = tx.get()
         now = time.time()  ###For calculate seconds of video
         future = now + 20
         if time.time() < future:
             if sub == '':
+                fill_attendance_error = True
                 err_screen1()
             else:
                 recognizer = cv2.face.LBPHFaceRecognizer_create()  # cv2.createLBPHFaceRecognizer()
                 try:
                     recognizer.read("TrainingImageLabel\Trainner.yml")
                 except:
+                    fill_attendance_error = True
                     e = 'Model not found,Please train model'
                     Notifica.configure(text=e, bg="red", fg="black", width=33, font=('times', 15, 'bold'))
                     Notifica.place(x=20, y=250)
@@ -227,6 +232,10 @@ def subjectchoose():
         fileName = "Attendance/" + Subject + "_" + date + "_" + Hour + "-" + Minute + "-" + Second + ".csv"
 
         Fillattendances()
+
+        if fill_attendance_error:
+            return;
+
         from tkinter import messagebox
         if messagebox.askokcancel("Continue", "Do you want to continue attendance?"):
             ReFillAttendances()
@@ -249,7 +258,7 @@ def subjectchoose():
                     c += 1
                 r += 1
         root.mainloop()
-        print(attendance)
+        # print(attendance)
             
     ###windo is frame for subject chooser
     windo = tk.Tk()
