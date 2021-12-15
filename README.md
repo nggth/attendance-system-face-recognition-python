@@ -12,6 +12,7 @@ Then activate the enviroment using the code below for windows.
 - Create a `TrainingImage` folder in a project. 
 - Run `pip install -r requirements.txt` to create all libraries below.
 - Run `py AMS_Run.py`. (or `py AMS_Handle.py` instead)
+- You can watch video demo here `https://youtu.be/5dUhvKqxEIk`
 
 ### Code Requirements
 - Opencv
@@ -35,3 +36,4 @@ Then activate the enviroment using the code below for windows.
 - It will require high processing power(I have 8 GB RAM & 2 GB GC)
 - It's not possible to recognise persons just like another humans.
 - Noisy images can reduce your accuracy so quality of images matter.
+
